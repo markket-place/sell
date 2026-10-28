@@ -15,6 +15,7 @@ const storeCover = store.Cover;
 
 // Filter, exclude, and slice collection elements safely
 const allPages = await getCollection("pages");
+
 const pageCards = allPages
   .filter((p) => !["about", "receipt", "product"].includes(p.data.slug))
   .filter((p) => (p.data as any)?.ShowInAbout !== false)
@@ -30,8 +31,8 @@ function imageOrFallback(
 }
 
 const seoImage = imageOrFallback(
-  page?.SEO?.socialImage?.formats?.large?.url,
-  page?.SEO?.socialImage?.url,
+  page?.seo?.socialImage?.formats?.large?.url,
+  page?.seo?.socialImage?.url,
   storeCover?.formats?.large?.url,
   storeCover?.url,
 );
@@ -52,25 +53,25 @@ function pageLinkFor(p: any) {
 ---
 
 <PageLayout
-  title={page?.SEO?.metaTitle || store.SEO?.metaTitle || "About Us"}
-  description={page?.SEO?.metaDescription || store.SEO?.metaDescription}
+  title={page?.seo?.metaTitle || store.seo?.metaTitle || "About Us"}
+  description={page?.seo?.metaDescription || store.seo?.metaDescription}
   image={seoImage}
   heroTitle={page?.Title || `About ${store.title || "Our Space"}`}
-  heroSubtitle={page?.SEO?.metaDescription ||
+  heroSubtitle={page?.seo?.metaDescription ||
     "We're building the future of creator commerce - a platform that puts artists, designers, and content creators first."}
-  heroImage={page?.SEO?.socialImage?.url || storeCover?.url}
-  heroLqip={page?.SEO?.socialImage?.formats?.small?.url}
-  heroAspect={page?.SEO?.meta?.heroAspect || "4/5"}
-  heroVariant={page?.SEO?.meta?.heroVariant || "spacious"}
+  heroImage={page?.seo?.socialImage?.url || storeCover?.url}
+  heroLqip={page?.seo?.socialImage?.formats?.small?.url}
+  heroAspect={page?.seo?.meta?.heroAspect || "4/5"}
+  heroVariant={page?.seo?.meta?.heroVariant || "spacious"}
   heroCtaText="Start Your Store Free"
   heroCtaUrl="https://de.markket.place/auth/magic"
 >
   <!-- Main Rich Text Content From Strapi -->
   {
-    page?.Content && page.Content.length > 0 && (
+    page?.content && page.content?.length > 0 && (
       <section class="page-content-section">
         <div class="container">
-          <BlocksContent content={page.Content} className="page-content" />
+          <BlocksContent content={page.content} className="page-content" />
         </div>
       </section>
     )
@@ -83,7 +84,7 @@ function pageLinkFor(p: any) {
         <div class="container">
           <div class="explore-header">
             <div class="explore-title-wrapper">
-              <IconCompass class="explore-icon" size={24} />
+              <IconCompass className="explore-icon" size={24} />
               <h2>Explore Our Space</h2>
             </div>
             <p>
@@ -115,7 +116,7 @@ function pageLinkFor(p: any) {
                   <div class="card-body">
                     <div class="card-title-line">
                       <h3>{p.data?.Title}</h3>
-                      <IconArrowUpRight class="arrow-icon" size={18} />
+                      <IconArrowUpRight className="arrow-icon" size={18} />
                     </div>
                     <p class="card-excerpt">
                       {excerpt.slice(0, 110)}
