@@ -12,26 +12,26 @@ const store = {
   ...storeData[0]?.data,
 };
 
-const storeCover = store.Cover;
+const storeCover = store.cover;
 
 import SubscribeForm from "../components/subscribe-form";
 ---
 
 <PageLayout
-  title={page?.SEO?.metaTitle || store.SEO?.metaTitle}
-  description={page?.SEO?.metaDescription || store.SEO?.metaDescription}
-  image={page?.SEO?.socialImage?.formats?.large?.url ||
-    page?.SEO?.socialImage?.url ||
+  title={page?.seo?.metaTitle || store.SEO?.metaTitle}
+  description={page?.seo?.metaDescription || store.SEO?.metaDescription}
+  image={page?.seo?.socialImage?.formats?.large?.url ||
+    page?.seo?.socialImage?.url ||
     storeCover?.url}
   heroTitle={page?.Title || "Space Newsletter"}
-  heroSubtitle={page?.SEO?.metaDescription || "Sign up for email updates."}
-  heroImage={page?.SEO?.socialImage?.url || storeCover?.url}
-  heroLqip={page?.SEO?.socialImage?.formats?.small?.url}
-  heroAspect={page?.SEO?.meta?.heroAspect || "4/5"}
-  heroVariant={page?.SEO?.meta?.heroVariant || "spacious"}
+  heroSubtitle={page?.seo?.metaDescription || "Sign up for email updates."}
+  heroImage={page?.seo?.socialImage?.url || storeCover?.url}
+  heroLqip={page?.seo?.socialImage?.formats?.small?.url}
+  heroAspect={page?.seo?.meta?.heroAspect || "4/5"}
+  heroVariant={page?.seo?.meta?.heroVariant || "spacious"}
 >
   {
-    page?.Content && page.Content.length > 0 && (
+    page?.content && page.content.length > 0 && (
       <section class="page-content-section">
         <div class="container">
           <div>
@@ -40,7 +40,7 @@ import SubscribeForm from "../components/subscribe-form";
               client:idle
             />
           </div>
-          <BlocksContent content={page.Content} className="page-content" />
+          <BlocksContent content={page.content} className="page-content" />
         </div>
       </section>
     )

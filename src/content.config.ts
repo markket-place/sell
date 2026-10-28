@@ -96,7 +96,7 @@ const pages = defineCollection({
     contentType: "page",
     sort: "slug:ASC",
     filter: `filters[store][slug][$eq]=${STORE_SLUG}`,
-    populate: "SEO.socialImage,albums,albums.tracks,albums.cover",
+    populate: "seo.socialImage,albums,albums.tracks,albums.cover",
   }),
   schema: baseStrapiSchema // 2. Hardcoded here so Astro never reads 'undefined'
 });
@@ -105,7 +105,7 @@ const store = defineCollection({
   loader: strapiLoader({
     contentType: "store",
     filter: `filters[slug][$eq]=${STORE_SLUG}`,
-    populate: "SEO.socialImage,Logo,URLS,Favicon,Cover",
+    populate: "seo.socialImage,logo,urls,favicon,cover",
   }),
   schema: baseStrapiSchema
 });
@@ -114,7 +114,7 @@ const stores = defineCollection({
   loader: strapiLoader({
     contentType: "store",
     filter: "filters[active]=true",
-    populate: "SEO.socialImage,Logo,URLS,Favicon",
+    populate: "seo.socialImage,logo,urls,favicon",
   }),
   schema: baseStrapiSchema
 });
@@ -124,7 +124,7 @@ const products = defineCollection({
     contentType: "product",
     filter: `filters[stores][slug][$eq]=${STORE_SLUG}`,
     sort: "slug:DESC",
-    populate: "SEO,SEO.socialImage,Thumbnail,Slides,PRICES",
+    populate: "seo,seo.socialImage,thumbnail,slides,prices",
   }),
   schema: baseStrapiSchema
 });
@@ -133,7 +133,7 @@ const posts = defineCollection({
   loader: strapiLoader({
     contentType: "article",
     filter: `filters[store][slug][$eq]=${STORE_SLUG}`,
-    populate: "SEO.socialImage,Tags,store,cover",
+    populate: "seo.socialImage,tags,store,cover",
     sort: "createdAt:DESC",
     paginate: { limit: 100 },
   }),
@@ -144,7 +144,7 @@ const events = defineCollection({
   loader: strapiLoader({
     contentType: "event",
     filter: `filters[stores][slug][$eq]=${STORE_SLUG}`,
-    populate: "SEO,SEO.socialImage,Tag,Thumbnail,Slides,stores",
+    populate: "seo,seo.socialImage,tag,thumbnail,slides,stores",
   }),
   schema: baseStrapiSchema
 });
