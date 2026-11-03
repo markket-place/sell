@@ -43,24 +43,23 @@ function imageOrFallback(
 }
 
 const seoImage = imageOrFallback(
-  (product.data as any)?.SEO?.socialImage?.formats?.large?.url,
-  (product.data as any)?.SEO?.socialImage?.url,
-  (product.data as any)?.Thumbnail?.url,
+  (product.data as any)?.seo?.socialImage?.formats?.large?.url,
+  (product.data as any)?.seo?.socialImage?.url,
+  (product.data as any)?.thumbnail?.url,
   storeCover?.url,
 );
 
 const heroLqip =
-  (product.data as any)?.SEO?.socialImage?.formats?.small?.url ||
-  (product.data as any)?.Thumbnail?.formats?.small?.url ||
+  (product.data as any)?.seo?.socialImage?.formats?.small?.url ||
+  (product.data as any)?.thumbnail?.formats?.small?.url ||
   "";
-const heroAspect = (product.data as any)?.SEO?.meta?.heroAspect || "4/5";
-const heroVariant = (product.data as any)?.SEO?.meta?.heroVariant || "spacious";
+const heroAspect = (product.data as any)?.seo?.meta?.heroAspect || "4/5";
+const heroVariant = (product.data as any)?.seo?.meta?.heroVariant || "spacious";
 
 const related = pickRelated(products, product, 3);
 
 // Date formatting
 const rawDate =
-  (product.data as any)?.Date ||
   (product.data as any)?.publishedAt ||
   (product.data as any)?.createdAt ||
   null;
@@ -80,12 +79,7 @@ function productLinkFor(p: any) {
 }
 
 // Extract slideshow assets cleanly
-const rawSlides =
-  (product.data as any)?.Slides ||
-  (product.data as any)?.slides ||
-  (product.data as any)?.Gallery ||
-  (product.data as any)?.images ||
-  [];
+const rawSlides = (product.data as any)?.slides || [];
 const slides: any[] = [];
 if (Array.isArray(rawSlides) && rawSlides.length > 0) {
   rawSlides.forEach((s: any) => {
@@ -94,6 +88,7 @@ if (Array.isArray(rawSlides) && rawSlides.length > 0) {
       slides.push({ url, alt: s?.alternativeText || s?.alt || productName });
   });
 }
+
 if (slides.length === 0 && seoImage) {
   slides.push({ url: seoImage, alt: productName });
 }
@@ -104,7 +99,7 @@ if (slides.length === 0 && seoImage) {
   description={seoDescription}
   image={seoImage}
   heroTitle={productName}
-  heroSubtitle={product.data?.SEO?.metaDescription}
+  heroSubtitle={product.data?.seo?.metaDescription}
   heroImage={seoImage}
   heroLqip={heroLqip}
   heroAspect={heroAspect}
@@ -174,7 +169,7 @@ if (slides.length === 0 && seoImage) {
             }
             <div class="cta-action-checkout-box">
               <CheckoutModal
-                prices={product.data.PRICES as Price[]}
+                prices={product.data.prices as Price[]}
                 product={product}
                 store={store}
                 client:load

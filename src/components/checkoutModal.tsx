@@ -45,16 +45,16 @@ const CheckoutModal: FC<Props> = ({ prices, product, store, hideTrigger = false 
     totalPrice: 0,
     product: product?.data?.documentId,
     prices: [],
-    stripe_test: !!(product?.Name || product?.Title || "").match(/test/i),
-    includes_shipping: !/(digital)/i.test(product?.Name || product?.Title || ""),
+    stripe_test: !!(product?.name || "").match(/test/i),
+    includes_shipping: !/(digital)/i.test(product?.name || ""),
     store_id: store?.data?.documentId || store?.documentId || store?.id || store?.slug,
     unit_amount: '0',
     quantity: 0,
   });
 
   useEffect(() => {
-    const price = prices.find((p: any) => p.STRIPE_ID === selectedPriceId) as Price;
-    const basePrice = parseInt(String(price?.Price || '0'), 10);
+    const price = prices.find((p: any) => p.stripe_id === selectedPriceId) as Price;
+    const basePrice = parseInt(String(price?.price || '0'), 10);
     const subtotal = basePrice * quantity;
     const newTotal = subtotal + tip;
 
@@ -62,7 +62,7 @@ const CheckoutModal: FC<Props> = ({ prices, product, store, hideTrigger = false 
       {
         quantity,
         price: selectedPriceId,
-        currency: (price?.Currency || 'usd'),
+        currency: (price?.currency || 'usd'),
       },
     ];
 
@@ -174,9 +174,9 @@ const CheckoutModal: FC<Props> = ({ prices, product, store, hideTrigger = false 
                 >
                   <option value="">Select an option</option>
                   {prices.map((price: any) => (
-                    <option key={price.STRIPE_ID} value={price.STRIPE_ID}>
-                      {(price.Name || price.name || '').replace(/_/g, ' ')} — ${price.Price || price.price}{' '}
-                      {price.Currency || price.currency}
+                    <option key={price.stripe_id} value={price.stripe_id}>
+                      {(price.name || '').replace(/_/g, ' ')} — ${price.price}{' '}
+                      {price.currency}
                     </option>
                   ))}
                 </select>
@@ -210,7 +210,7 @@ const CheckoutModal: FC<Props> = ({ prices, product, store, hideTrigger = false 
               <div className="mb-4">
                 <button
                   type="submit"
-                  disabled={submitting || total <= 0 || !selectedPrice?.Description || quantity < 1}
+                  disabled={submitting || total <= 0 || !selectedPrice?.description || quantity < 1}
                   className="w-full rounded-lg bg-sky-600 px-5 py-3 text-white font-semibold hover:bg-sky-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {submitting ? 'Processing...' : 'Continue to Payment'}
