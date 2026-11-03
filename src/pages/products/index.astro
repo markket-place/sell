@@ -38,26 +38,26 @@ function imageOrFallback(
 }
 
 const heroImage = imageOrFallback(
-  page?.SEO?.socialImage?.url,
-  store?.SEO?.socialImage?.url,
+  page?.seo?.socialImage?.url,
+  store?.seo?.socialImage?.url,
   storeCover?.url,
 );
 
-const heroTitle = page?.Title || store?.SEO?.metaTitle || "Our Products";
+const heroTitle = page?.title || store?.seo?.metaTitle || "Our Products";
 const heroSubtitle =
-  page?.SEO?.metaDescription ||
-  store?.SEO?.metaDescription ||
+  page?.seo?.metaDescription ||
+  store?.seo?.metaDescription ||
   "Explore exclusive assets and creations.";
 const heroLqip =
-  (page?.SEO as any)?.socialImage?.formats?.small?.url ||
+  (page?.seo as any)?.socialImage?.formats?.small?.url ||
   (storeCover as any)?.formats?.small?.url ||
   "";
-const heroAspect = (page?.SEO as any)?.meta?.heroAspect || "4/5";
-const heroVariant = (page?.SEO as any)?.meta?.heroVariant || "spacious";
+const heroAspect = (page?.seo as any)?.meta?.heroAspect || "4/5";
+const heroVariant = (page?.seo as any)?.meta?.heroVariant || "spacious";
 ---
 
 <PageLayout
-  title={page?.SEO?.metaTitle || store?.SEO?.metaTitle || heroTitle}
+  title={page?.seo?.metaTitle || store?.seo?.metaTitle || heroTitle}
   description={heroSubtitle}
   image={heroImage}
   heroTitle={heroTitle}
@@ -73,7 +73,7 @@ const heroVariant = (page?.SEO as any)?.meta?.heroVariant || "spacious";
       <div class="container">
         <div class="directory-header">
           <div class="title-cluster">
-            <IconShoppingBag class="header-icon" size={24} />
+            <IconShoppingBag className="header-icon" size={24} />
             <h2>Catalog Showcase</h2>
           </div>
           <p class="count-indicator">{productCards.length} assets available</p>
@@ -83,8 +83,7 @@ const heroVariant = (page?.SEO as any)?.meta?.heroVariant || "spacious";
           productCards && productCards.length > 0 ? (
             <div class="products-display-grid">
               {productCards.map((p: any) => {
-                const displayTitle =
-                  p.data?.Name || p.data?.Title || "Untitled Product";
+                const displayTitle = p.data?.name || "Mistery Product";
                 const price = (p.data as any)?.Price;
                 const hasPrice =
                   typeof price === "number" || typeof price === "string";
@@ -151,10 +150,13 @@ const heroVariant = (page?.SEO as any)?.meta?.heroVariant || "spacious";
 
     <!-- Rich Text Block Content injected via dynamic CMS fields -->
     {
-      page?.Content && page.Content.length > 0 && (
+      Array.isArray(page?.content) && page.content.length > 0 && (
         <section class="page-content-section">
           <div class="container container-narrow">
-            <BlocksContent content={page.Content} className="page-content" />
+            <BlocksContent
+              content={page?.content as []}
+              className="page-content"
+            />
           </div>
         </section>
       )
