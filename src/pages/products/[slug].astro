@@ -26,7 +26,7 @@ const { slug } = Astro.params;
 const product = products.find((p) => p.data?.slug === slug || p.id === slug);
 if (!product) throw new Error(`Product not found: ${slug}`);
 
-const productName = (product.data as any)?.Name || "Premium Asset";
+const productName = (product.data as any)?.name;
 const seoTitle = (product.data as any)?.SEO?.metaTitle || productName;
 const seoDescription =
   (product.data as any)?.SEO?.metaDescription || renderExcerpt(product);
@@ -204,13 +204,13 @@ if (slides.length === 0 && seoImage) {
                 <a
                   href={productLinkFor(r)}
                   class="mini-product-card"
-                  aria-label={`View product ${(r.data as any)?.Name || r.id}`}
+                  aria-label={`View product ${(r.data as any)?.name || r.id}`}
                 >
                   <div class="mini-thumb-pane">
                     <img src={imgFor(r)} alt="" loading="lazy" />
                   </div>
                   <div class="mini-content-pane">
-                    <h4>{(r.data as any)?.Name || "Premium Asset"}</h4>
+                    <h4>{(r.data as any)?.name || "Premium Asset"}</h4>
                     <p>{(renderExcerpt(r) || "").slice(0, 90)}…</p>
                   </div>
                 </a>

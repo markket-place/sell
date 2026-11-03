@@ -154,7 +154,7 @@ const CheckoutModal: FC<Props> = ({ prices, product, store, hideTrigger = false 
             </button>
             <form onSubmit={redirectToPaymentLink}>
               <h2 className="text-xl font-semibold text-gray-200  mb-1">
-                Checkout: {product?.Name || product?.Title}
+                Checkout: {product?.name}
               </h2>
               <p className="text-sm text-gray-300  mb-4">
                 Select your preferred option and customize your order.

@@ -83,8 +83,7 @@ const heroVariant = (page?.seo as any)?.meta?.heroVariant || "spacious";
           productCards && productCards.length > 0 ? (
             <div class="products-display-grid">
               {productCards.map((p: any) => {
-                const displayTitle =
-                  p.data?.Name || p.data?.Title || "Untitled Product";
+                const displayTitle = p.data?.name || "Mistery Product";
                 const price = (p.data as any)?.Price;
                 const hasPrice =
                   typeof price === "number" || typeof price === "string";
